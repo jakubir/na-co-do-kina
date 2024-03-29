@@ -2,7 +2,7 @@
 
 ### To do
 
-- [] Input
+- [ ] Input
 - [ ] output conajmniej jeden
 - [ ] serwisy
 - [ ] ngIF
