@@ -2,7 +2,7 @@
 
 ### To do
 
-- [ ] Input
+- [x] Input
 - [ ] output conajmniej jeden
 - [ ] serwisy
 - [ ] ngIF
@@ -10,5 +10,5 @@
 - [ ] ngClass
 - [ ] ngStyle
 - [x] komponenty
-- [ ] nawigacja (rooting)
+- [x] nawigacja (rooting)
 - [ ] obsługa formularzy

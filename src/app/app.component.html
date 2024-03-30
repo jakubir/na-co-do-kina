@@ -1,5 +1,9 @@
-<app-navbar />
-<router-outlet>
-
-</router-outlet>
-<app-footer />
+<div class="d-flex flex-column h-100">
+    <app-navbar class="flex-grow-0" />
+    <div class="container-xxl bd-gutter mt-3 my-md-4 flex-fill">
+        <router-outlet>
+            
+        </router-outlet>
+    </div>
+    <app-footer class="flex-grow-0" />
+</div>
