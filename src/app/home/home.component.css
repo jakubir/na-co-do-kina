@@ -1,0 +1,9 @@
+aside {
+    background-color: #fefdfd;
+    min-width: 260px;
+    min-height: 300px; /* do usunięcia */
+    height: fit-content;
+}
+li {
+    width: 20%;
+}

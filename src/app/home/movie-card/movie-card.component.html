@@ -1,0 +1,19 @@
+<div 
+    class="card h-100"
+    (click)="showDetails.emit(movieId)"
+    title="{{title.toUpperCase()}} :  {{truncate(description)}}"
+>
+    <div class="card-body p-0">
+        <div class="card-img-top">
+            <img 
+                src="https://media.themoviedb.org/t/p/w220_and_h330_face{{image}}" 
+                class="rounded-top m-0 w-100 h-100" 
+                alt="Plakat filmu {{title}}"
+            >
+        </div>
+        <h5 class="h6 card-title fw-semibold px-2 pt-3 m-0">{{title}}</h5>
+        <p class="card-text px-2 pb-2 text-secondary" title="Data wydania">
+            {{ releaseDate | date: 'mediumDate' }}
+        </p>
+    </div>
+</div>

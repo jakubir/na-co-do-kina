@@ -1,6 +1,24 @@
-<aside>
-
-</aside>
-<main>
-    Home page
-</main>
+<div class="row column-gap-4">
+    <aside class="container col-2 rounded shadow">
+        
+    </aside>
+    <main class="container col">
+        <h2>Filmy w kinach</h2>
+        <ul class="list-unstyled row row-gap-3">
+            <li 
+                class="col-3 flex-grow-1 p-0 ps-3"
+                *ngFor="let movie of moviesList"
+            >
+                <app-movie-card
+                    class="h-100 d-block" 
+                    image={{movie.poster_path}}
+                    title={{movie.title}} 
+                    description={{movie.overview}}
+                    releaseDate={{movie.release_date}}
+                    movieId={{movie.id}}
+                    (showDetails)="showMovieDetails($event)"
+                />
+            </li>
+        </ul>
+    </main>
+</div>

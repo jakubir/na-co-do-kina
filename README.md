@@ -3,10 +3,10 @@
 ### To do
 
 - [x] Input
-- [ ] output conajmniej jeden
-- [ ] serwisy
+- [x] output conajmniej jeden
+- [x] serwisy
 - [ ] ngIF
-- [ ] ngFor
+- [x] ngFor
 - [ ] ngClass
 - [ ] ngStyle
 - [x] komponenty
