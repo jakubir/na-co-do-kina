@@ -1,0 +1,10 @@
+div.rounded-circle {
+    width: 2.2em;
+    height: 2.2em;
+    line-height: 2.2em;
+    font-family: fantasy !important;
+    letter-spacing: 0.03em;
+    box-sizing: content-box;
+    bottom: 20%;
+    left: 5%;
+}

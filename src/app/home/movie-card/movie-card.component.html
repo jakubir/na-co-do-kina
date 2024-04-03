@@ -1,18 +1,28 @@
 <div 
     class="card h-100"
     (click)="showDetails.emit(movieId)"
-    title="{{title.toUpperCase()}} :  {{truncate(description)}}"
+    title="{{ title.toUpperCase() }} :  {{ truncate(description) }}"
 >
     <div class="card-body p-0">
         <div class="card-img-top">
             <img 
-                src="https://media.themoviedb.org/t/p/w220_and_h330_face{{image}}" 
+                src="https://media.themoviedb.org/t/p/w220_and_h330_face{{ image }}" 
                 class="rounded-top m-0 w-100 h-100" 
-                alt="Plakat filmu {{title}}"
+                alt="Plakat filmu {{ title }}"
             >
         </div>
         <!--    kolor tła oceny zmienia się przez ngStyle / ngClass    -->
-        <h5 class="h6 card-title fw-semibold px-2 pt-3 m-0">{{title}}</h5>
+        <div 
+            class="position-absolute text-center text-light fst-italic border border-4 rounded-circle bg-dark"
+            [ngClass]="
+                percentageRating > 69 ? 'border-success' : 
+                percentageRating > 39 ? 'border-warning' : 
+                percentageRating > 0 ? 'border-danger' : 'border-secondary'
+            "
+        >
+            {{ percentageRating }}%
+        </div>
+        <h5 class="h6 card-title fw-semibold px-2 pt-3 m-0">{{ title }}</h5>
         <p class="card-text px-2 pb-2 text-secondary" title="Data wydania">
             {{ releaseDate | date: 'mediumDate' }}
         </p>

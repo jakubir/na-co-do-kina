@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { MoviesService } from '../movies.service';
 import { CommonModule } from '@angular/common';
 import { MovieCardComponent } from './movie-card/movie-card.component';
+import { Router } from '@angular/router';
 
 interface Movie {
   adult: boolean;
@@ -32,7 +33,7 @@ export class HomeComponent {
   pageNumber = 1;
   moviesList: Movie[] = [];
 
-  constructor(private movies: MoviesService) {}
+  constructor(private movies: MoviesService, private router: Router) {}
   
   ngOnInit() {
     this.movies.getAll(this.pageNumber).subscribe((response: any) => {
@@ -41,6 +42,6 @@ export class HomeComponent {
   }
 
   showMovieDetails(id: string) {
-    console.log(id)
+    this.router.navigate([`/movie/${id}`]);
   }
 }
