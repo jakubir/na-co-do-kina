@@ -7,7 +7,7 @@
 - [x] serwisy
 - [ ] ngIF
 - [x] ngFor
-- [ ] ngClass
+- [x] ngClass
 - [ ] ngStyle
 - [x] komponenty
 - [x] nawigacja (rooting)
