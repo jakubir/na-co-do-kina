@@ -6,15 +6,28 @@ import { Injectable } from '@angular/core';
 })
 export class MoviesService {
 
+  private options = {
+    headers: {
+      accept: 'application/json',
+      Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI5ZGNjOWQ5NjQwZDhlYTdhZGVmODVmMjI0YzRkODlkNSIsInN1YiI6IjY1ZjgxMjhkMjQyZjk0MDE2NGNjZGU2ZCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.WvjDDYLz4QSPBzjevT6vFZgYbTgkvbifK24QgQ6A5_g'
+    },
+  }
+
   constructor(private http: HttpClient) { }
 
-  getAll(page = 1) {
-    const url = `https://api.themoviedb.org/3/movie/now_playing?language=pl&page=${page}`;
-    return this.http.get(url, {
-      headers: {
-        accept: 'application/json',
-        Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI5ZGNjOWQ5NjQwZDhlYTdhZGVmODVmMjI0YzRkODlkNSIsInN1YiI6IjY1ZjgxMjhkMjQyZjk0MDE2NGNjZGU2ZCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.WvjDDYLz4QSPBzjevT6vFZgYbTgkvbifK24QgQ6A5_g'
-      },
-    });
+  getAll(page: number) {
+    const min_date = Intl.DateTimeFormat().format(new Date(new Date().getTime() - 35 * 24 * 60 * 60 * 1000)); // 5 tyg. przed
+    const max_date = Intl.DateTimeFormat().format(new Date(new Date().getTime() + 7 * 24 * 60 * 60 * 1000)); // tydz. po
+    console.log(min_date, max_date);
+    
+    const url = `https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=pl&page=${page}&region=PL&sort_by=popularity.desc&with_release_type=2|3&release_date.gte=${min_date}&release_date.lte=${max_date}`;
+    // link z filtrami: https://developer.themoviedb.org/reference/discover-movie
+    return this.http.get(url, this.options);
+  }
+
+  getMovieById(id: number) {
+    const url = `https://api.themoviedb.org/3/movie/${id}?language=pl`;
+
+    return this.http.get(url, this.options);
   }
 }
