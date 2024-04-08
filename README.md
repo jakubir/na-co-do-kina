@@ -12,3 +12,4 @@
 - [x] komponenty
 - [x] nawigacja (rooting)
 - [ ] obsługa formularzy
+- [ ] obsługa błędów (nie wymaganie)
