@@ -28,7 +28,7 @@ jobs:
         run: ng build --configuration production --base-href https://rodrigokamada.github.io/
       - name: Deploy
         if: success()
-        uses: jakubir/actions-gh-pages@v3
+        uses: jakubir/na-co-do-kina@v2
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: dist/
