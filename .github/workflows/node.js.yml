@@ -20,12 +20,12 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: '18'
-  
       - name: Install dependencies
         run: npm install
-  
+      - name: Install Angular CLI
+        run: npm i @angular/cli -g
       - name: Build
-        run: ng build --configuration production --base-href https://rodrigokamada.github.io/
+        run: ng build --configuration production --base-href https://jakubir.github.io/na-co-do-kina
       - name: Deploy
         if: success()
         uses: ./.github/workflows/node.js.yml
