@@ -28,5 +28,5 @@ jobs:
         cache: 'npm'
     - run: npm i @angular/cli -g
     - run: npm i
-    - run: ng serve
+    - run: ng build
 
