@@ -11,4 +11,3 @@
 - [ ] ngStyle
 - [x] komponenty
 - [x] nawigacja (rooting)
-- [ ] obsługa formularzy
