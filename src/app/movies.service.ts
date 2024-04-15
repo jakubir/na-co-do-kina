@@ -13,15 +13,15 @@ export class MoviesService {
     },
   }
 
+  public loadingNewContent = false;
+
   constructor(private http: HttpClient) { }
 
   getAll(page: number) {
     const min_date = Intl.DateTimeFormat().format(new Date(new Date().getTime() - 35 * 24 * 60 * 60 * 1000)); // 5 tyg. przed
     const max_date = Intl.DateTimeFormat().format(new Date(new Date().getTime() + 7 * 24 * 60 * 60 * 1000)); // tydz. po
-    console.log(min_date, max_date);
-    
     const url = `https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=pl&page=${page}&region=PL&sort_by=popularity.desc&with_release_type=2|3&release_date.gte=${min_date}&release_date.lte=${max_date}`;
-    // link z filtrami: https://developer.themoviedb.org/reference/discover-movie
+
     return this.http.get(url, this.options);
   }
 

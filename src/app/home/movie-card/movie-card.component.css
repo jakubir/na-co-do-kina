@@ -5,6 +5,9 @@ div.rounded-circle {
     font-family: fantasy !important;
     letter-spacing: 0.03em;
     box-sizing: content-box;
-    bottom: 20%;
+    top: 13vw;
     left: 5%;
+}
+div.card {
+    cursor: pointer
 }

@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { MoviesService } from '../movies.service';
+import { CommonModule } from '@angular/common';
 
 interface MovieDetails {
   adult: boolean,
@@ -56,7 +57,7 @@ interface MovieDetails {
 @Component({
   selector: 'app-movie',
   standalone: true,
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './movie.component.html',
   styleUrl: './movie.component.css'
 })

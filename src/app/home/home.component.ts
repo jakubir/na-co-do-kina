@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, HostListener, ViewChild } from '@angular/core';
 import { MoviesService } from '../movies.service';
 import { CommonModule } from '@angular/common';
 import { MovieCardComponent } from './movie-card/movie-card.component';
+import { FiltersComponent } from './filters/filters.component';
 import { Router } from '@angular/router';
 
 interface Movie {
@@ -25,13 +26,14 @@ interface Movie {
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, MovieCardComponent],
+  imports: [CommonModule, MovieCardComponent, FiltersComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
 export class HomeComponent {
   pageNumber = 1;
   moviesList: Movie[] = [];
+  @ViewChild('listEnd') listEnd!: ElementRef;
 
   constructor(private movies: MoviesService, private router: Router) {}
   
@@ -43,5 +45,16 @@ export class HomeComponent {
 
   showMovieDetails(id: string) {
     this.router.navigate([`/movie/${id}`]);
+  }
+  @HostListener('document:scroll', ['$event'])
+  loadMoreContent() {
+    if (!this.movies.loadingNewContent && this.listEnd.nativeElement.getBoundingClientRect().top < window.innerHeight) {
+      this.movies.loadingNewContent = true;
+      this.pageNumber++;
+      this.movies.getAll(this.pageNumber).subscribe((response: any) => {
+        this.moviesList.push(...response.results);
+        this.movies.loadingNewContent = false;
+      });
+    }
   }
 }

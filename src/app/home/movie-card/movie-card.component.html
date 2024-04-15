@@ -9,6 +9,8 @@
                 src="https://media.themoviedb.org/t/p/w220_and_h330_face{{ image }}" 
                 class="rounded-top m-0 w-100 h-100" 
                 alt="Plakat filmu {{ title }}"
+                width="220"
+                height="330"
             >
         </div>
         <div 
@@ -19,9 +21,16 @@
                 percentageRating > 0 ? 'border-danger' : 'border-secondary'
             "
         >
-            {{ percentageRating }}%
+            {{ percentageRating > 0 ? percentageRating : '-' }}%
         </div>
-        <h5 class="h6 card-title fw-semibold px-2 pt-3 m-0">{{ title }}</h5>
+        <h5 class="h6 card-title fw-semibold px-2 pt-3 m-0">
+            <a 
+                class="link-dark link-underline link-underline-opacity-0" 
+                [routerLink]="['movie/' + movieId]"
+            >
+                {{ title }}
+            </a>
+        </h5>
         <p class="card-text px-2 pb-2 text-secondary" title="Data wydania">
             {{ releaseDate | date: 'mediumDate' }}
         </p>
