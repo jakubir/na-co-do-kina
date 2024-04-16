@@ -20,8 +20,9 @@
                 percentageRating > 39 ? 'border-warning' : 
                 percentageRating > 0 ? 'border-danger' : 'border-secondary'
             "
+            [ngStyle]="percentageRating == 100 ? {'font-size': '0.8em'} : {}"
         >
-            {{ percentageRating > 0 ? percentageRating : '-' }}%
+            {{percentageRating}}%
         </div>
         <h5 class="h6 card-title fw-semibold px-2 pt-3 m-0">
             <a 

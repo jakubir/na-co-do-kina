@@ -22,7 +22,6 @@ interface Movie {
   vote_count: number;
 }
 
-
 @Component({
   selector: 'app-home',
   standalone: true,
@@ -32,13 +31,14 @@ interface Movie {
 })
 export class HomeComponent {
   pageNumber = 1;
+  allContentLoaded = false;
   moviesList: Movie[] = [];
   @ViewChild('listEnd') listEnd!: ElementRef;
 
   constructor(private movies: MoviesService, private router: Router) {}
   
   ngOnInit() {
-    this.movies.getAll(this.pageNumber).subscribe((response: any) => {
+    this.movies.getAllMovies(this.pageNumber).subscribe((response: any) => {
       this.moviesList = response.results;
     });
   }
@@ -46,13 +46,17 @@ export class HomeComponent {
   showMovieDetails(id: string) {
     this.router.navigate([`/movie/${id}`]);
   }
+  
   @HostListener('document:scroll', ['$event'])
   loadMoreContent() {
-    if (!this.movies.loadingNewContent && this.listEnd.nativeElement.getBoundingClientRect().top < window.innerHeight) {
+    if (!this.allContentLoaded && !this.movies.loadingNewContent && this.listEnd.nativeElement.getBoundingClientRect().top < window.innerHeight) {
       this.movies.loadingNewContent = true;
       this.pageNumber++;
-      this.movies.getAll(this.pageNumber).subscribe((response: any) => {
-        this.moviesList.push(...response.results);
+      this.movies.getAllMovies(this.pageNumber).subscribe((response: any) => {
+        if (!response.results.length)
+          this.allContentLoaded = true;
+        else
+          this.moviesList.push(...response.results);
         this.movies.loadingNewContent = false;
       });
     }

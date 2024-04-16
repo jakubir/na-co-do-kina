@@ -71,6 +71,8 @@ export class MovieComponent {
     this.movies.getMovieById(Number(this.id)).subscribe((response: any) => {
       this.movieDetails = response;
       this.title.setTitle(this.movieDetails!.title);
+      console.log(this.movieDetails!.id);
+      
     })
   }
 }
