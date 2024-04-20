@@ -70,7 +70,7 @@ export class MovieComponent {
   ngOnInit() {
     this.movies.getMovieById(Number(this.id)).subscribe((response: any) => {
       this.movieDetails = response;
-      this.title.setTitle(this.movieDetails!.title);
+      this.title.setTitle(this.movieDetails!.title + ' — Na co do kina?');
     })
   }
 }

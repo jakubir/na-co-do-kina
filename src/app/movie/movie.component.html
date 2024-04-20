@@ -1,11 +1,17 @@
 <main>
     <div
-        class="w-100"
-        style="width: 100px; height: 100px;"
+        class="w-100 container"
         [ngStyle]="{'background-image' : 'url(https://image.tmdb.org/t/p/original'+ this.movieDetails!.backdrop_path +')'}" 
     >
-    <!-- ścieżka zdjęcia statyczna w ngOnInit -->
-
+        <div class="col-2">
+            <img 
+                class="w-100"
+                src="https://image.tmdb.org/t/p/original{{this.movieDetails!.poster_path}}" 
+                alt="Plakat filmu {{movieDetails!.title}}"
+            />
+        </div>
+        <div class="col">
+            <h1>{{ movieDetails!.title }}</h1>
+        </div>
     </div>
-    <h1>{{ movieDetails!.title }}</h1>
 </main>
