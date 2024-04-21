@@ -8,6 +8,6 @@
 - [ ] ngIF
 - [x] ngFor
 - [x] ngClass
-- [ ] ngStyle
+- [x] ngStyle
 - [x] komponenty
 - [x] nawigacja (rooting)

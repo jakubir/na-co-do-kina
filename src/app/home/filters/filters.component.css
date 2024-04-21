@@ -1,0 +1,11 @@
+label.btn {
+    color: black;
+}
+button.btn {
+    font-weight: 600;
+    border: solid #031633 !important;
+}
+button.btn:hover {
+    background-color: white !important;
+    color: black !important;
+}

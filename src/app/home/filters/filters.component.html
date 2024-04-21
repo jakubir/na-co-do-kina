@@ -1,1 +1,20 @@
-<p>filters works!</p>
+<div class="py-3">
+    <h3 class="ms-1 mb-3">Filtry</h3>
+    <form>
+        <h5 class="ms-2">Sortuj</h5>
+        <select class="form-select">
+            <option *ngFor="let option of sortOptions" value="{{option[0]}}">{{option[1]}}</option>
+        </select>
+        <hr />
+        <h5 class="ms-2">Gatunki</h5>
+        <div class="d-flex flex-wrap gap-1">
+            <div *ngFor="let genre of genres">
+                <input type="checkbox" class="btn-check" autocomplete="off" id="{{genre.name}}" />
+                <label class="btn btn-outline-secondary" for="{{genre.name}}">
+                    {{genre.name}}
+                </label>
+            </div>
+        </div>
+        <button data-bs-theme="dark" type="submit" class="btn bg-primary-subtle w-100 mt-4 mb-2">Filtruj</button>      
+    </form>
+</div>
