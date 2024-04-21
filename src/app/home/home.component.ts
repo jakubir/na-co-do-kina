@@ -31,17 +31,9 @@ interface Movie {
 })
 export class HomeComponent {
   pageNumber = 1;
-  allContentLoaded = false;
-  moviesList: Movie[] = [];
   @ViewChild('listEnd') listEnd!: ElementRef;
 
-  constructor(private movies: MoviesService, private router: Router) {}
-  
-  ngOnInit() {
-    this.movies.getAllMovies(this.pageNumber).subscribe((response: any) => {
-      this.moviesList = response.results;
-    });
-  }
+  constructor(public movies: MoviesService, private router: Router) {}
 
   showMovieDetails(id: string) {
     this.router.navigate([`/movie/${id}`]);
@@ -49,16 +41,10 @@ export class HomeComponent {
   
   @HostListener('document:scroll', ['$event'])
   loadMoreContent() {
-    if (!this.allContentLoaded && !this.movies.loadingNewContent && this.listEnd.nativeElement.getBoundingClientRect().top < window.innerHeight) {
+    if (!this.movies.allContentLoaded && !this.movies.loadingNewContent && this.listEnd.nativeElement.getBoundingClientRect().top < window.innerHeight) {
       this.movies.loadingNewContent = true;
       this.pageNumber++;
-      this.movies.getAllMovies(this.pageNumber).subscribe((response: any) => {
-        if (!response.results.length)
-          this.allContentLoaded = true;
-        else
-          this.moviesList.push(...response.results);
-        this.movies.loadingNewContent = false;
-      });
+      this.movies.loadNextPage(this.pageNumber)
     }
   }
 }
