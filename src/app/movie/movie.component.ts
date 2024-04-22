@@ -78,7 +78,6 @@ export class MovieComponent {
       this.movieDetails = response;
 
       this.title.setTitle(this.movieDetails!.title + ' — Na co do kina?');
-      //console.log(this.movieDetails);
       this.movieGenres = this.movieDetails!.genres.map(genre => genre.name).join(' - ');
       this.percentageRating = Math.round(Number(this.movieDetails!.vote_average) * 10);
       this.movies.getMovieTrailer(this.movieDetails!.id).subscribe((response: any) => {

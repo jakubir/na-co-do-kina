@@ -34,11 +34,11 @@ export class HomeComponent {
 
   constructor(public movies: MoviesService, private router: Router) {}
 
-  showMovieDetails(id: string) {
+  showMovieDetails(id: string) { // przejście do strony ze szczegółami filmu
     this.router.navigate([`/movie/${id}`]);
   }
   
-  @HostListener('document:scroll', ['$event'])
+  @HostListener('document:scroll', ['$event']) // ładowanie kolejnych filmów po przewinięciu do końca listy
   loadMoreContent() {
     if (!this.movies.allContentLoaded && !this.movies.loadingNewContent && this.listEnd.nativeElement.getBoundingClientRect().top < window.innerHeight) {
       this.movies.loadingNewContent = true;

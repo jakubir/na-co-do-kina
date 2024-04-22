@@ -2,11 +2,10 @@
     <h3 class="ms-1 mb-3">Filtry</h3>
     <form #form="ngForm" (ngSubmit)="filter(form)">
         <h5 class="ms-2">Sortuj</h5>
-        <select #select class="form-select" name="sort" ngModel>
+        <select #select class="form-select" name="sort" [(ngModel)]="sortOptionSelected">
             <option 
                 *ngFor="let option of sortOptions" 
                 [attr.value]="option[0]"
-                [attr.selected]="option[0] == movies.sort_by ? '' : null"
             >
                 {{option[1]}}
             </option>

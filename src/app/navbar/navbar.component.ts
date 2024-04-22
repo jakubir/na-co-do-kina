@@ -13,11 +13,10 @@ import { NgForm, FormsModule } from '@angular/forms';
 })
 export class NavbarComponent {
 
-  constructor(private movies: MoviesService, private router: Router) {}
+  constructor(public movies: MoviesService, private router: Router) {}
 
   search(form: NgForm) {
     this.router.navigate(['/']); // obejście problemu z brakiem rerenderowania komponentu
-    this.movies.searchForMovie(form.value.query, this.router.url);
-  }
-
+    this.movies.getMovieDetailsByTitle(form.value.query, this.router.url);
+  }  
 }

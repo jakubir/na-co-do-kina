@@ -24,7 +24,7 @@ export class MovieCardComponent {
     this.percentageRating = Math.round(Number(this.rating) * 10);
   }
 
-  truncate(str: string) {
+  truncate(str: string) { // skróć opis do 15 słów
     const words = str.split(" ");
 
     return words.length > 15 ? words.splice(0, 15).join(" ") + "..." : words.join(" ");

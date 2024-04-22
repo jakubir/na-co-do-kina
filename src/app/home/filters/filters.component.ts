@@ -26,6 +26,7 @@ export class FiltersComponent {
   ]
   genres: Genres[] = [];
   @ViewChild('select') select!: ElementRef;
+  sortOptionSelected = 'popularity.desc'
 
   constructor(public movies: MoviesService) {}
 
@@ -44,6 +45,6 @@ export class FiltersComponent {
         genres.push(genre.slice(1));
     }
 
-    this.movies.applyFilters(sort_by, genres);
+    this.movies.setFilters(sort_by, genres);
   }
 }
