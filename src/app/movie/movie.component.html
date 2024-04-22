@@ -1,17 +1,72 @@
 <main>
     <div
-        class="w-100 container"
-        [ngStyle]="{'background-image' : 'url(https://image.tmdb.org/t/p/original'+ this.movieDetails!.backdrop_path +')'}" 
+        *ngIf="this.movieDetails"
+        class="vw-100 position-absolute"
+        [ngStyle]="{'background-image' : 'url(https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces'+ this.movieDetails!.backdrop_path +')'}" 
     >
-        <div class="col-2">
-            <img 
-                class="w-100"
-                src="https://image.tmdb.org/t/p/original{{this.movieDetails!.poster_path}}" 
-                alt="Plakat filmu {{movieDetails!.title}}"
-            />
-        </div>
-        <div class="col">
-            <h1>{{ movieDetails!.title }}</h1>
+    <div class="vw-100">
+            <div class="container text-light">
+                <div class="row">
+                    <div 
+                        style="width: fit-content"
+                        class="p-4"
+                    >
+                        <img 
+                            class="rounded w-100 h-100"
+                            width="330"
+                            height="450"
+                            src="https://media.themoviedb.org/t/p/w300_and_h450_bestv2{{this.movieDetails!.poster_path}}" 
+                            alt="Plakat filmu {{movieDetails!.title}}"
+                        />
+                    </div>
+                    <div class="col p-4">
+                        <h1>{{ movieDetails!.title }}</h1>
+                        <h4 class="fw-light mb-0">
+                            {{movieDetails!.release_date | date: 'shortDate'}}
+                            — 
+                            {{movieGenres}}
+                        </h4>
+                        <div>
+                            <div 
+                                class="text-center text-light fst-italic border border-4 rounded-circle bg-dark h5 d-inline-block"
+                                [ngClass]="
+                                    percentageRating > 69 ? 'border-success' : 
+                                    percentageRating > 39 ? 'border-warning' : 
+                                    percentageRating > 0 ? 'border-danger' : 'border-secondary'
+                                "
+                                [ngStyle]="percentageRating == 100 ? {'font-size': '0.8em'} : {}"
+                            >
+                                {{percentageRating}}%
+                            </div>
+                            <p class="p-2 h5 d-inline-block position-relative mb-4" style="width: 2px; top:10px">Ocena użytkowników</p>
+                        </div>
+                        <blockquote *ngIf="movieDetails!.tagline" class="fst-italic text-secondary fw-normal h5">{{movieDetails!.tagline}}</blockquote>
+                        <div *ngIf="movieDetails!.overview">
+                            <h3>Opis</h3>
+                            <p>{{movieDetails!.overview}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
+    <div class="p-4" aria-disabled="true">
+        <div style="height:450px;"></div>
+    </div>
+    <h3 *ngIf="this.trailer.length" style="margin-left: 5px;"class="h2">Zobacz zwiastun</h3>
+    <div *ngIf="this.trailer.length" id="carouselExample" class="carousel slide">
+        <div class="carousel-inner">
+          <div class="carousel-item" *ngFor="let t of trailer; index as i" [ngClass]="i == 0 ? 'active' : ''">
+            <iframe *ngIf="this.trailer" style="height: 75vh; width: 100%" [src]="'https://www.youtube.com/embed/' + t.key | safe"></iframe>
+          </div>
+        </div>
+        <button *ngIf="this.trailer.length > 1" class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button *ngIf="this.trailer.length > 1" class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div>
 </main>

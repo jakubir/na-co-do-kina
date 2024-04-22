@@ -13,16 +13,18 @@
                 height="330"
             >
         </div>
-        <div 
-            class="position-absolute text-center text-light fst-italic border border-4 rounded-circle bg-dark"
-            [ngClass]="
-                percentageRating > 69 ? 'border-success' : 
-                percentageRating > 39 ? 'border-warning' : 
-                percentageRating > 0 ? 'border-danger' : 'border-secondary'
-            "
-            [ngStyle]="percentageRating == 100 ? {'font-size': '0.8em'} : {}"
-        >
-            {{percentageRating}}%
+        <div class="position-relative">
+            <div 
+                class="position-absolute text-center text-light fst-italic border border-4 rounded-circle bg-dark"
+                [ngClass]="
+                    percentageRating > 69 ? 'border-success' : 
+                    percentageRating > 39 ? 'border-warning' : 
+                    percentageRating > 0 ? 'border-danger' : 'border-secondary'
+                "
+                [ngStyle]="percentageRating == 100 ? {'font-size': '0.8em'} : {}"
+            >
+                {{percentageRating}}%
+            </div>
         </div>
         <h5 class="h6 card-title fw-semibold px-2 pt-3 m-0">
             <a 

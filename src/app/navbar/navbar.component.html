@@ -3,9 +3,12 @@
         <a routerLink="/" class="h2 link-warning text-decoration-none fw-bold fst-italic">
             Na co do kina?
         </a>
-        <form data-bs-theme="light" class="d-flex" role="search">
-            <input class="form-control me-2" type="search" placeholder="Chcę obejrzeć..." aria-label="Szukaj">
-            <button class="btn btn-outline-warning fw-medium" style="--bs-link-hover-color-rgb: 248, 249, 250;" type="submit">
+        <form data-bs-theme="light" class="d-flex" role="search" #searchForm="ngForm" (ngSubmit)="search(searchForm); searchForm.reset()">
+            <input class="form-control me-2" type="search" placeholder="Chcę obejrzeć..." aria-label="Szukaj" name="query" ngModel>
+            <button 
+                class="btn btn-outline-warning fw-medium" style="--bs-link-hover-color-rgb: 248, 249, 250;" 
+                type="submit"
+            >
                 Szukaj
             </button>
         </form>

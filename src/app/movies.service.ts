@@ -1,5 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 
 interface Movie {
   adult: boolean;
@@ -31,30 +32,23 @@ export class MoviesService {
   }
   public loadingNewContent = false;
   public moviesList: Movie[] = [];
-  public allContentLoaded: boolean = false;
+  public allContentLoaded = false;
+  public pageNumber = 1;
+  public sort_by = "popularity.desc";
+  public genres: string[] = [];
 
-  constructor(private http: HttpClient) {
-    this.getAllMovies(1).subscribe((response: any) => {
-      this.moviesList.push(...response.results);
-    });;
+  constructor(private http: HttpClient, private router: Router) {
+    this.getAllMovies().subscribe((response: any) => {
+      this.moviesList.push(...response.results);      
+    });
   }
 
-  getAllMovies(page: number) {
+  getAllMovies() {
     const min_date = Intl.DateTimeFormat().format(new Date(new Date().getTime() - 42 * 24 * 60 * 60 * 1000)); // 6 tyg. przed
     const max_date = Intl.DateTimeFormat().format(new Date(new Date().getTime() + 24 * 60 * 60 * 1000)); // tydz. po
-    const url = `https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=pl&page=${page}&region=PL&sort_by=popularity.desc&with_release_type=2|3&release_date.gte=${min_date}&release_date.lte=${max_date}`;
+    const url = `https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=pl&page=${this.pageNumber}&region=PL&sort_by=${this.sort_by}&with_release_type=2|3&release_date.gte=${min_date}&release_date.lte=${max_date}${this.genres.length > 0 ? '&with_genres=' + this.genres.join('%7C') : ''}`;   
     
     return this.http.get(url, this.options);
-  }
-
-  loadNextPage(page: number) {
-    this.getAllMovies(page).subscribe((response: any) => {
-      if (!response.results.length)
-        this.allContentLoaded = true;
-      else
-        this.moviesList.push(...response.results);
-      this.loadingNewContent = false;
-    });;
   }
 
   getMovieById(id: number) {
@@ -67,5 +61,48 @@ export class MoviesService {
     const url = `https://api.themoviedb.org/3/genre/movie/list?language=pl`;
 
     return this.http.get(url, this.options);
+  }
+
+  searchForMovie(query: string) {
+    const url = `https://api.themoviedb.org/3/search/movie?query=${encodeURIComponent(query)}&include_adult=false&language=pl&page=1`;
+
+    this.http.get(url, this.options).subscribe((response: any) => {
+      response.results.map((result: Movie) => {
+        if (
+          new Date(result.release_date).getTime() > new Date(new Date().getTime() - 42 * 24 * 60 * 60 * 1000).getTime() && 
+          new Date(result.release_date).getTime() < new Date(new Date().getTime() + 24 * 60 * 60 * 1000).getTime()
+        )
+          this.router.navigate([`/movie/${result.id}`])
+      })
+    });
+  }
+
+  applyFilters(sort_by: string, genres: string[]) {
+    this.loadingNewContent = false;
+    this.allContentLoaded = false;
+    this.pageNumber = 1;
+    this.sort_by = sort_by;
+    this.genres = genres;
+    this.moviesList = [];
+
+    this.getAllMovies().subscribe((response: any) => {
+      this.moviesList.push(...response.results);
+    });;
+  }
+
+  getMovieTrailer(id: number) {
+    const url = `https://api.themoviedb.org/3/movie/${id}/videos?language=pl`;
+
+    return this.http.get(url, this.options);
+  }
+
+  loadNextPage() {
+    this.getAllMovies().subscribe((response: any) => {
+      if (!response.results.length)
+        this.allContentLoaded = true;
+      else
+        this.moviesList.push(...response.results);
+      this.loadingNewContent = false;
+    });
   }
 }

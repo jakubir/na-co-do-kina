@@ -1,15 +1,21 @@
 <div class="py-3">
     <h3 class="ms-1 mb-3">Filtry</h3>
-    <form>
+    <form #form="ngForm" (ngSubmit)="filter(form)">
         <h5 class="ms-2">Sortuj</h5>
-        <select class="form-select">
-            <option *ngFor="let option of sortOptions" value="{{option[0]}}">{{option[1]}}</option>
+        <select #select class="form-select" name="sort" ngModel>
+            <option 
+                *ngFor="let option of sortOptions" 
+                [attr.value]="option[0]"
+                [attr.selected]="option[0] == 'popularity.desc' ? '' : null"
+            >
+                {{option[1]}}
+            </option>
         </select>
         <hr />
         <h5 class="ms-2">Gatunki</h5>
         <div class="d-flex flex-wrap gap-1">
             <div *ngFor="let genre of genres">
-                <input type="checkbox" class="btn-check" autocomplete="off" id="{{genre.name}}" />
+                <input type="checkbox" class="btn-check" autocomplete="off" id="{{genre.name}}" name="g{{genre.id}}" ngModel/>
                 <label class="btn btn-outline-secondary" for="{{genre.name}}">
                     {{genre.name}}
                 </label>

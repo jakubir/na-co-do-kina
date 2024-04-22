@@ -5,7 +5,7 @@
 - [x] Input
 - [x] output conajmniej jeden
 - [x] serwisy
-- [ ] ngIF
+- [x] ngIF
 - [x] ngFor
 - [x] ngClass
 - [x] ngStyle

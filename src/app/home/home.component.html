@@ -4,9 +4,10 @@
     </aside>
     <main class="container col">
         <h2>Obecnie w kinach</h2>
-        <ul class="list-unstyled row row-gap-3">
+        <ul class="list-unstyled container d-flex flex-wrap row-gap-3">
+            <li *ngIf="!this.movies.moviesList.length">Trwa ładowanie...</li>
             <li 
-                class="col-3 flex-grow-1 p-0 ps-3"
+                class="p-0 ps-3"
                 *ngFor="let movie of this.movies.moviesList"
             >
                 <app-movie-card

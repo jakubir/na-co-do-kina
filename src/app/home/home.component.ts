@@ -30,7 +30,6 @@ interface Movie {
   styleUrl: './home.component.css'
 })
 export class HomeComponent {
-  pageNumber = 1;
   @ViewChild('listEnd') listEnd!: ElementRef;
 
   constructor(public movies: MoviesService, private router: Router) {}
@@ -43,8 +42,8 @@ export class HomeComponent {
   loadMoreContent() {
     if (!this.movies.allContentLoaded && !this.movies.loadingNewContent && this.listEnd.nativeElement.getBoundingClientRect().top < window.innerHeight) {
       this.movies.loadingNewContent = true;
-      this.pageNumber++;
-      this.movies.loadNextPage(this.pageNumber)
+      this.movies.pageNumber++;
+      this.movies.loadNextPage();
     }
   }
 }
