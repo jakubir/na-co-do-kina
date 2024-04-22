@@ -27,7 +27,7 @@ export class FiltersComponent {
   genres: Genres[] = [];
   @ViewChild('select') select!: ElementRef;
 
-  constructor(private movies: MoviesService) {}
+  constructor(public movies: MoviesService) {}
 
   ngOnInit() {
     this.movies.getAllGenres().subscribe((response: any) => {

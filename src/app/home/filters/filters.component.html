@@ -6,7 +6,7 @@
             <option 
                 *ngFor="let option of sortOptions" 
                 [attr.value]="option[0]"
-                [attr.selected]="option[0] == 'popularity.desc' ? '' : null"
+                [attr.selected]="option[0] == movies.sort_by ? '' : null"
             >
                 {{option[1]}}
             </option>

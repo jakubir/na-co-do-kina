@@ -3,6 +3,7 @@ import { Title } from '@angular/platform-browser';
 import { MoviesService } from '../movies.service';
 import { CommonModule } from '@angular/common';
 import { SafePipe } from '../safe.pipe';
+import { ActivatedRoute, Router } from '@angular/router';
 
 interface MovieDetails {
   adult: boolean,
@@ -69,14 +70,15 @@ export class MovieComponent {
   percentageRating = 0;
   trailer: any[] = [];
 
-  constructor(private title: Title, private movies: MoviesService) {}
+  constructor(private title: Title, private movies: MoviesService) {
+  }
 
   ngOnInit() {
     this.movies.getMovieById(Number(this.id)).subscribe((response: any) => {
       this.movieDetails = response;
 
       this.title.setTitle(this.movieDetails!.title + ' — Na co do kina?');
-      console.log(this.movieDetails);
+      //console.log(this.movieDetails);
       this.movieGenres = this.movieDetails!.genres.map(genre => genre.name).join(' - ');
       this.percentageRating = Math.round(Number(this.movieDetails!.vote_average) * 10);
       this.movies.getMovieTrailer(this.movieDetails!.id).subscribe((response: any) => {

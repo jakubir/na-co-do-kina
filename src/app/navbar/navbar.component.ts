@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { MoviesService } from '../movies.service';
 import { NgForm, FormsModule } from '@angular/forms';
@@ -13,10 +13,11 @@ import { NgForm, FormsModule } from '@angular/forms';
 })
 export class NavbarComponent {
 
-  constructor(private movies: MoviesService) {}
+  constructor(private movies: MoviesService, private router: Router) {}
 
   search(form: NgForm) {
-    this.movies.searchForMovie(form.value.query);
+    this.router.navigate(['/']); // obejście problemu z brakiem rerenderowania komponentu
+    this.movies.searchForMovie(form.value.query, this.router.url);
   }
 
 }

@@ -63,17 +63,22 @@ export class MoviesService {
     return this.http.get(url, this.options);
   }
 
-  searchForMovie(query: string) {
+  searchForMovie(query: string, previousUrl: string) {
     const url = `https://api.themoviedb.org/3/search/movie?query=${encodeURIComponent(query)}&include_adult=false&language=pl&page=1`;
+    let con = true;
 
     this.http.get(url, this.options).subscribe((response: any) => {
       response.results.map((result: Movie) => {
         if (
           new Date(result.release_date).getTime() > new Date(new Date().getTime() - 42 * 24 * 60 * 60 * 1000).getTime() && 
           new Date(result.release_date).getTime() < new Date(new Date().getTime() + 24 * 60 * 60 * 1000).getTime()
-        )
+        ) {
           this.router.navigate([`/movie/${result.id}`])
+          con = false;
+        }
       })
+      if (con)
+        this.router.navigate([previousUrl]);
     });
   }
 
