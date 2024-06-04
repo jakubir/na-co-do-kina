@@ -35,6 +35,7 @@ Aplikacja wykorzystuje następujące funkcjonalności:
 - Wykorzystanie dyrektyw ngIF, ngFor, ngClass, ngStyle
 - Wykorzystanie komponentów
 - Wykorzystanie routingu
+- Wykorzystanie pipe'ów do wyświetlania daty (w polskim formacie)
 
 ## Ważne cechy aplikacji 
 
